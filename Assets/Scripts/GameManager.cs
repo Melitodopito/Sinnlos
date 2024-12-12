@@ -16,12 +16,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<string> exceptions = new List<string>();
 
     private GameObject[] allGameObjects;
+    private LineRenderer[] smells;
     private SpriteRenderer SpriteRenderer;
     private MeshRenderer MeshRenderer;
 
     void Start()
     {
+
         allGameObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        smells = FindObjectsByType<LineRenderer>(FindObjectsSortMode.None);
         //Blindness(exceptions);
     }
 
@@ -30,6 +33,8 @@ public class GameManager : MonoBehaviour
     {
         if (!vision) Blindness(exceptions);
         else Vision();
+        if (!smell) Anosmia();
+        else Smell();
     }
 
 
@@ -90,6 +95,28 @@ public class GameManager : MonoBehaviour
                 }
 
 
+            }
+        }
+    }
+
+    // Anosmia means not being able to smell
+    void Anosmia()
+    {
+        foreach (LineRenderer lr in smells)
+        {
+            if (lr != null)
+            {  
+                lr.enabled = false;
+            }
+        }
+    }
+    void Smell()
+    {
+        foreach (LineRenderer lr in smells)
+        {
+            if (lr != null)
+            {
+                lr.enabled = true;
             }
         }
     }
