@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] List<string> exceptions = new List<string>();
 
+
     private GameObject[] allGameObjects;
     private LineRenderer[] smells;
+    private ParticleSystem[] sounds;
+
     private SpriteRenderer SpriteRenderer;
     private MeshRenderer MeshRenderer;
 
@@ -25,20 +28,23 @@ public class GameManager : MonoBehaviour
 
         allGameObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         smells = FindObjectsByType<LineRenderer>(FindObjectsSortMode.None);
+        sounds = FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None);
         //Blindness(exceptions);
     }
 
     
     void Update()
     {
-        if (!vision) Blindness(exceptions);
-        else Vision();
-        if (!smell) Anosmia();
-        else Smell();
+        if (!vision) Blindness(exceptions, allGameObjects);
+        else Vision(allGameObjects);
+        if (!smell) Anosmia(smells);
+        else Smell(smells);
+        if (!hearing) Deafness(sounds);
+        else Hearing(sounds);
     }
 
 
-    void Blindness(List<string> exceptions)
+    void Blindness(List<string> exceptions, GameObject[] allGameObjects)
     {
         // Hides Objects if Blind 
         // TO CHANGE: make dark?
@@ -70,7 +76,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void Vision()
+    void Vision(GameObject[] allGameObjects)
     {
         foreach (GameObject obj in allGameObjects)
         {
@@ -100,7 +106,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Anosmia means not being able to smell
-    void Anosmia()
+    void Anosmia(LineRenderer[] smells)
     {
         foreach (LineRenderer lr in smells)
         {
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    void Smell()
+    void Smell(LineRenderer[] smells)
     {
         foreach (LineRenderer lr in smells)
         {
@@ -120,5 +126,28 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    void Hearing(ParticleSystem[] sounds) 
+    {
+        foreach (ParticleSystem pS in sounds)
+        {
+            if (pS != null)
+            {
+                pS.Play();
+            }
+        }
+    }
+
+    void Deafness(ParticleSystem[] sounds)
+    {
+        foreach (ParticleSystem pS in sounds)
+        {
+            if (pS != null)
+            {
+                pS.Pause();
+            }
+        }
+    }
+
 
 }

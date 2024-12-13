@@ -6,6 +6,9 @@ public class Smell : MonoBehaviour
     [SerializeField] Transform SmellStart;
     [SerializeField] Transform SmellEnd;
 
+    [SerializeField] float maxSmellDistance = 10f;
+    [SerializeField] float preSmellLenght;
+
     private LineRenderer lineRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,9 +22,24 @@ public class Smell : MonoBehaviour
     {
         if (SmellStart != null && SmellEnd != null)
         {
-            lineRenderer.SetPosition(0, SmellStart.position);
-            lineRenderer.SetPosition(1, SmellEnd.position);
+            Vector3 generalDirection = (SmellEnd.position - SmellStart.position).normalized;
+
+            float distance = Vector3.Distance(SmellStart.position, SmellEnd.position);
+
+            if (distance < maxSmellDistance)
+            {
+                lineRenderer.SetPosition(0, SmellStart.position);
+                lineRenderer.SetPosition(1, SmellEnd.position);
+
+            }
+            else
+            {
+                lineRenderer.SetPosition(0, SmellStart.position);
+                lineRenderer.SetPosition(1, SmellStart.position + generalDirection * preSmellLenght);
+            }
         }
 
     }
+
+
 }

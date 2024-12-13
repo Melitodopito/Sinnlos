@@ -154,3 +154,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SmellStart: {fileID: 0}
   SmellEnd: {fileID: 0}
+  maxSmellDistance: 14
+  preSmellLenght: 2.5

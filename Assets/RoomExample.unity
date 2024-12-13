@@ -860,9 +860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb829401e79c9f7408c823c8d6219b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vision: 0
-  smell: 0
-  touch: 0
+  vision: 1
+  smell: 1
+  touch: 1
   hearing: 0
   taste: 0
   exceptions:
