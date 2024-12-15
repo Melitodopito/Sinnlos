@@ -12,24 +12,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool hearing;
     [SerializeField] bool taste;
 
+    public bool getVision() { return vision; }
 
     [SerializeField] List<string> exceptions = new List<string>();
 
 
     private GameObject[] allGameObjects;
-    private LineRenderer[] smells;
-    private ParticleSystem[] sounds;
-
+    public GameObject[] GetAllGameObjects() { return allGameObjects; }
+    
     private SpriteRenderer SpriteRenderer;
     private MeshRenderer MeshRenderer;
+
+    private LineRenderer[] smells;
+    private ParticleSystem[] soundVisualEffects;
+    private AudioSource[] sounds;
+
+
+
 
     void Start()
     {
 
         allGameObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         smells = FindObjectsByType<LineRenderer>(FindObjectsSortMode.None);
-        sounds = FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None);
-        //Blindness(exceptions);
+        soundVisualEffects = FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None);
+        sounds = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
     }
 
     
@@ -39,8 +46,8 @@ public class GameManager : MonoBehaviour
         else Vision(allGameObjects);
         if (!smell) Anosmia(smells);
         else Smell(smells);
-        if (!hearing) Deafness(sounds);
-        else Hearing(sounds);
+        if (!hearing) Deafness(soundVisualEffects,sounds);
+        else Hearing(soundVisualEffects, sounds);
     }
 
 
@@ -127,27 +134,56 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Hearing(ParticleSystem[] sounds) 
+    void Hearing(ParticleSystem[] soundVisualEffects, AudioSource[] sounds) 
     {
-        foreach (ParticleSystem pS in sounds)
+        foreach (ParticleSystem pS in soundVisualEffects)
         {
             if (pS != null)
             {
                 pS.Play();
             }
         }
+
+        foreach (AudioSource aS in sounds)
+        {
+            if (aS != null)
+            {
+                aS.Play();
+            }
+        }
     }
 
-    void Deafness(ParticleSystem[] sounds)
+    void Deafness(ParticleSystem[] soundVisualEffects, AudioSource[] sounds)
     {
-        foreach (ParticleSystem pS in sounds)
+        foreach (ParticleSystem pS in soundVisualEffects)
         {
             if (pS != null)
             {
                 pS.Pause();
             }
         }
+
+        foreach (AudioSource aS in sounds)
+        {
+            if (aS != null)
+            {
+                aS.Stop();
+            }
+        }
+
+
     }
 
-
+    public int CountObjectWithTag(GameObject[] allGameObjects, string enemyTag)
+    {
+        int enemyCount = 0;
+        foreach(GameObject obj in allGameObjects)
+        {
+            if (obj.tag == enemyTag)
+            {
+                enemyCount++;
+            }
+        }
+        return enemyCount;
+    }
 }
