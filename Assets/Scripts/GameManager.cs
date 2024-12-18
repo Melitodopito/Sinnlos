@@ -143,12 +143,13 @@ public class GameManager : MonoBehaviour
                 pS.Play();
             }
         }
-
+        
         foreach (AudioSource aS in sounds)
         {
             if (aS != null)
             {
-                aS.Play();
+                // This is not working
+                aS.UnPause();
             }
         }
     }
@@ -174,16 +175,16 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public int CountObjectWithTag(GameObject[] allGameObjects, string enemyTag)
+    public int CountObjectWithTag(GameObject[] allGameObjects, string tagToCount)
     {
-        int enemyCount = 0;
+        int tagCount = 0;
         foreach(GameObject obj in allGameObjects)
         {
-            if (obj.tag == enemyTag)
+            if (obj.tag == tagToCount)
             {
-                enemyCount++;
+                tagCount++;
             }
         }
-        return enemyCount;
+        return tagCount;
     }
 }

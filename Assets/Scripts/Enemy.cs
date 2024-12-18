@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.CompareTag(flipTag))
         {
-        movementSpeed = -movementSpeed;
-        FlipEnemy();
+            movementSpeed = -movementSpeed;
+            FlipEnemy();
         }
     }
 
