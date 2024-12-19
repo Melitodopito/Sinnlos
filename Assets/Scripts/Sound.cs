@@ -21,7 +21,6 @@ public class Sound : MonoBehaviour
         {
 
             float distance = Vector3.Distance(origin.position, listener.position);
-            Debug.Log(distance);
 
             // Currently not working
             if (distance < radius)

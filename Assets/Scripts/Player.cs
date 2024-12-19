@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Windows;
 using Vector3 = UnityEngine.Vector3;
 
 
@@ -47,42 +48,20 @@ public class Player: MonoBehaviour
 
     private void PlayerMoves(float movementSpeed)
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
-        Debug.Log($"This is inpuX: {inputX} This is inputY {inputY} ");
+        float inputX = UnityEngine.Input.GetAxis("Horizontal");
+        float inputY = UnityEngine.Input.GetAxis("Vertical");
+        
 
         Vector3 movement = new Vector3(inputX * movementSpeed, inputY * movementSpeed, 0);
         movement *= Time.deltaTime;
     
-        transform.Translate(movement);
+        transform.Translate(movement,Space.World);
+        PlayerRotates(inputX, inputY, playerTransform);
 
         // Is there A better way to deal with this? Perhaps just a
         // function for physical moving, another function for animation and sound? 
 
-
-        // Prototype
-        switch (inputY)
-        {
-            case < 0:
-                playerSpriteRenderer.flipY = true;
-                break;
-            default:
-                playerSpriteRenderer.flipY = false;
-                break;
-        }
-        // Prototype
-        switch (inputX)
-        {
-            case < 0:
-                playerTransform.Rotate(0.0f, 0.0f, 1.0f);
-                break;
-            case > 0:
-                playerTransform.Rotate(0.0f, 0.0f, -1.0f);
-                break;
-            default:
-                break;
-        }
-
+        
         // Animation related
         if (inputX < 0 || inputY < 0)
         {
@@ -104,7 +83,7 @@ public class Player: MonoBehaviour
             return;
         }
 
-        if (manager.getVision() && Input.GetKeyDown(instinctKey))
+        if (manager.getVision() && UnityEngine.Input.GetKeyDown(instinctKey))
         {
             // Not good practise to get in every other frame, need to change this in future 
             GameObject[] allObjects = manager.GetAllGameObjects();
@@ -121,11 +100,54 @@ public class Player: MonoBehaviour
 
         
     }
-    
-    //private void RotateSpriteVertically(SpriteRenderer SpriteRenderer)
-    //{
-    //    SpriteRenderer.flipY = true;
-    //}
+
+    private void PlayerRotates(float inputX, float inputY, Transform playerTransform)
+    {
+        // Prototype, this looks incredible dumb but it works
+        switch (inputY, inputX)
+        {
+            // Up
+            case ( > 0, 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            // Down
+            case ( < 0, 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 180);
+                break;
+            // Left
+            case ( 0, < 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+            //Right
+            case (0,> 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 270);
+                break;
+            // Up Left
+            case ( > 0, < 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 45);
+                break;
+            // UP Right
+            case ( > 0, > 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 315);
+                break;
+            // Down right
+            case ( < 0, > 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 225);
+                break;
+            // Down left
+            case ( < 0, < 0):
+                playerTransform.rotation = Quaternion.Euler(0, 0, 135);
+                break;
+
+            default:
+                break;
+
+        }
+        
+
+        
+
+    }
 
 
 
