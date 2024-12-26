@@ -444,7 +444,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.0053510335, y: -4.143948, z: 0.074211605}
-  m_LocalScale: {x: 0.66659355, y: -0.7722274, z: 0.21843597}
+  m_LocalScale: {x: 0.6288844, y: -0.7285425, z: 0.20607905}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1435783263}
@@ -1428,6 +1428,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smell
       objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime0
+      value: 77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.065809794
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.065809794
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.89433956
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.09437512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 0.09437512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512351398291443020, guid: 419a05aade482e24ca6fb31112532f3b, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0.90943396
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1487,7 +1523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7284920805406643284, guid: 1785ec45c0acb4248a31c1d9ed150987, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.609184
+      value: -28.36
       objectReference: {fileID: 0}
     - target: {fileID: 7284920805406643284, guid: 1785ec45c0acb4248a31c1d9ed150987, type: 3}
       propertyPath: m_LocalRotation.w
