@@ -17,8 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<string> exceptions = new List<string>();
 
 
-    private GameObject[] allGameObjects;
-    public GameObject[] GetAllGameObjects() { return allGameObjects; }
+    public GameObject[] allGameObjects;
     
     private SpriteRenderer SpriteRenderer;
     private MeshRenderer MeshRenderer;
@@ -186,5 +185,21 @@ public class GameManager : MonoBehaviour
             }
         }
         return tagCount;
+    }
+
+    // is this ok? 
+    public void RemoveFromGameObjects(GameObject objToRemove)
+    {
+        int index = System.Array.IndexOf(allGameObjects, objToRemove);
+        if (index >= 0)
+        {
+            GameObject[] newArray = new GameObject[allGameObjects.Length - 1];
+            for (int i = 0, j = 0; i < allGameObjects.Length; i++)
+            {
+                if (i == index) continue;
+                newArray[j++] = allGameObjects[i];
+            }
+            allGameObjects = newArray;
+        }
     }
 }

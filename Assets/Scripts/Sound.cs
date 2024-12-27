@@ -5,7 +5,7 @@ public class Sound : MonoBehaviour
     [SerializeField] Transform origin;
     [SerializeField] Transform listener;
     [SerializeField] float radius;
-    [SerializeField] Sprite soundDistanceSprite;
+    [SerializeField] bool soundDebug;
 
     private AudioSource audioSource;
 
@@ -22,7 +22,11 @@ public class Sound : MonoBehaviour
         {
 
             float distance = Vector3.Distance(origin.position, listener.position);
-            //DebugSound();
+            
+            if (soundDebug)
+            {
+                OnDrawGizmos();
+            }
            
             if (distance > radius)
             {
@@ -39,20 +43,14 @@ public class Sound : MonoBehaviour
     }
 
 
-
-    //void DebugSound()
-    //{
-    //    SpriteRenderer soundDistanceSpriteRenderer;
-
-
-    //    float distance = Vector3.Distance(origin.position, listener.position);
-    //    Debug.Log("THis is distance" +  distance);
-
-    //    soundDistanceSpriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-
-    //    soundDistanceSpriteRenderer.sprite = soundDistanceSprite;
-
-
-    //}
+    // Gizmos are used to debug in sceneview
+    void OnDrawGizmos()
+    {
+        if (origin != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(origin.position, radius);
+        }
+    }
 
 }

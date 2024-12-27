@@ -8,9 +8,14 @@ public class Player: MonoBehaviour
 
     // Commands? Change later
     [SerializeField] KeyCode instinctKey;
+    [SerializeField] KeyCode shootingKey;
 
     // Player Variables
     [SerializeField] float movementSpeed = 1f;
+    [SerializeField] float shootingForce = 1f;
+    [SerializeField] float shootingTime = 5f;
+    [SerializeField] GameObject projetile;
+
 
     // Colliders and Rigid body
     private BoxCollider2D playerColllider2D;
@@ -19,6 +24,7 @@ public class Player: MonoBehaviour
     private Animator playerAnimator;
     private SpriteRenderer playerSpriteRenderer;
     private Transform playerTransform;
+
     // Other Classes
     private GameManager manager;
 
@@ -32,9 +38,8 @@ public class Player: MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
-       
-        ///// TO REMOVE LATER
-        //audioSource.Play();
+     
+      
     }
 
 
@@ -42,6 +47,7 @@ public class Player: MonoBehaviour
     {
         PlayerMoves(movementSpeed);
         PlayerFeelsEnviroment(manager, instinctKey);
+        PlayerShoots(shootingForce, shootingTime, projetile, playerTransform);
         
     }
 
@@ -86,7 +92,7 @@ public class Player: MonoBehaviour
         if (manager.getVision() && UnityEngine.Input.GetKeyDown(instinctKey))
         {
             // Not good practise to get in every other frame, need to change this in future 
-            GameObject[] allObjects = manager.GetAllGameObjects();
+            GameObject[] allObjects = manager.allGameObjects;
 
             if (manager.CountObjectWithTag(allObjects, "Enemy") == 0)
             {
@@ -149,6 +155,30 @@ public class Player: MonoBehaviour
 
     }
 
+    private void PlayerShoots(float shootingForce, float shootingTime, GameObject projectile, Transform ShootingPoint)
+    {
+        // Better way to do this? 
+        if (UnityEngine.Input.GetKeyDown(instinctKey) && (projectile && ShootingPoint) )
+        {
+            
+            {
+                // Offsetting
+                Vector3 spawnPosition = ShootingPoint.position + ShootingPoint.up.normalized * 0.5f;
+                
+                GameObject my_projetile = Instantiate(projectile, spawnPosition, ShootingPoint.rotation);
+                Rigidbody2D my_body = my_projetile.GetComponent<Rigidbody2D>();
+                if (my_body)
+                {
+                    my_body.AddForce(ShootingPoint.up.normalized * shootingForce);
+                }
+                else
+                {
+                    Debug.LogError("NOT WORKING");
+                }
+                Destroy(my_projetile, shootingTime);
+            }
 
+        }
+    }
 
 }
